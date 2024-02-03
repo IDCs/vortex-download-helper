@@ -2,6 +2,11 @@ Exports a couple of useful functions to use when downloading game extension requ
 
 `export { axios, download, findModByFile, findDownloadIdByFile, walkPath };`
 
+Features:
+- axios 1.6.7 is bundled with the downloader script, it's exported as part of the script so you can use it in your extension.
+- Ability to download requirements from Github and/or NexusMods depending on where the file is hosted.
+- Ability to find mods and downloads from Vortex's state.
+
 usage example:
 
 Add the following at the top of your index file (or wherever) in your game extension.
