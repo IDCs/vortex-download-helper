@@ -4,7 +4,7 @@ Exports a couple of useful functions to use when downloading game extension requ
 
 usage example:
 
-Add the following to your dependencies in your game extension.
+Add the following at the top of your index file (or wherever) in your game extension.
 ```
 const { download, findModByFile, findDownloadIdByFile } = require('./downloader');
 ```
