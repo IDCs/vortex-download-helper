@@ -1,7 +1,10 @@
 /* eslint-disable */
 import path from 'path';
+import semver from 'semver';
 import { fs, selectors, types, util } from 'vortex-api';
 import turbowalk, { IWalkOptions, IEntry } from 'turbowalk';
+
+import { IPluginRequirement } from './types';
 
 export function getMods(api: types.IExtensionApi, modType: string): types.IMod[] {
   const state = api.getState();
@@ -35,6 +38,19 @@ export function findDownloadIdByFile(api: types.IExtensionApi, fileName: string)
     }
     return prev;
   }, '');
+}
+
+export async function resolveVersionByPattern(api: types.IExtensionApi, requirement: IPluginRequirement): Promise<string> {
+  const state = api.getState();
+  const files: types.IDownload[] = util.getSafe(state, ['persistent', 'downloads', 'files'], []);
+  const latestVersion = Object.values(files).reduce((prev, file) => {
+    const match = requirement.fileArchivePattern.exec(file.localPath);
+    if (match?.[1] && semver.gt(match[1], prev)) {
+      prev = match[1];
+    }
+    return prev;
+  }, '0.0.0');
+  return latestVersion;
 }
 
 export async function walkPath(dirPath: string, walkOptions?: IWalkOptions): Promise<IEntry[]> {
