@@ -11,6 +11,7 @@
     "issueTracker": "https://github.com/IDCs/vortex-github-downloader/issues"
   },
   "scripts": {
+    "buildModule": "npx webpack",
     "build": "npx webpack && yarn packplugin",
     "copyplugin": "node copyplugin.js",
     "copyplugindev": "node copyplugin.js -dev",
